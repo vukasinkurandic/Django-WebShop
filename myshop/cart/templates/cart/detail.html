@@ -1,6 +1,5 @@
-{% extends "shop/base.html" %} {% load static %} {% block title %}
-<h1>Your shopping cart</h1>
-{% endblock%} {% block content%}
+{% extends "shop/base.html" %} {% load static %} {% block title %} Your shopping
+cart {% endblock%} {% block content%}
 <h1>Your shopping cart</h1>
 <table class="cart">
   <thead>
@@ -26,7 +25,14 @@
         </a>
       </td>
       <td>{{product.name}}</td>
-      <td>{{product.quantity}}</td>
+      <td>
+        <form action="{% url 'cart:cart_add' product.id %}" method="POST">
+          {{item.update_quantity_form.quantity}}
+          {{item.update_quantity_form.override}}
+          <input type="submit" value="Update" />
+          {% csrf_token %}
+        </form>
+      </td>
       <td>
         <form action="{% url 'cart:cart_remove' product.id%}" method="POST">
           <input type="submit" value="Remove" />
